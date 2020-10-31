@@ -11,7 +11,7 @@ BINFILES = $(patsubst app/%.cpp, bin/%, $(wildcard app/*.cpp))
 
 .PRECIOUS: $(OBJFILES)
 
-all: $(TARGET)
+all: $(BINFILES)
 
 bin/%: app/%.cpp # $(OBJFILES)
 	mkdir -p "$(@D)"

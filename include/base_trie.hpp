@@ -24,7 +24,7 @@ public:
 	std::optional<std::vector<T> > get(std::string);
 	void remove(std::string);
 
-	int size();
+	long long size();
 	void print();
 
 protected:

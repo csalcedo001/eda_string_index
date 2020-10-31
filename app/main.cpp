@@ -37,5 +37,7 @@ int main() {
 		}
 	}
 
+	trie.print();
+
     return 0;
 }
