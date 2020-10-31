@@ -2,6 +2,7 @@
 #define TRIE_BASE_TRIE_HPP_
 
 #include <vector>
+#include <optional>
 
 #include "base_node.hpp"
 
@@ -20,8 +21,7 @@ public:
 	~BaseTrie();
 
 	void insert(std::string, T);
-	bool exists(std::string);
-	std::vector<T> get(std::string);
+	std::optional<std::vector<T> > get(std::string);
 	void remove(std::string);
 
 	int size();

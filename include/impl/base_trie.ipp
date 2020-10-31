@@ -4,6 +4,7 @@
 #include "base_trie.hpp"
 
 #include <iostream>
+#include <optional>
 
 #include "base_node.hpp"
 
@@ -47,8 +48,28 @@ void BaseTrie<T, Node>::insert(std::string index, T value) {
 	this->size_++;
 }
 
+// template <typename T, class Node>
+// bool BaseTrie<T, Node>::exists(std::string index) {
+// 	Node *curr = this->head_, *prev;
+// 
+// 	int i = 0;
+// 
+// 	while (true) {
+// 		prev = curr;
+// 		curr = prev->child_get(index[i]);
+// 
+// 		if (i >= index.size()) break;
+// 
+// 		if (curr == nullptr) return false;
+// 
+// 		i++;
+// 	}
+// 
+// 	return prev->is_terminal();
+// }
+
 template <typename T, class Node>
-bool BaseTrie<T, Node>::exists(std::string index) {
+std::optional<std::vector<T> > BaseTrie<T, Node>::get(std::string index) {
 	Node *curr = this->head_, *prev;
 
 	int i = 0;
@@ -59,27 +80,7 @@ bool BaseTrie<T, Node>::exists(std::string index) {
 
 		if (i >= index.size()) break;
 
-		if (curr == nullptr) return false;
-
-		i++;
-	}
-
-	return prev->is_terminal();
-}
-
-template <typename T, class Node>
-std::vector<T> BaseTrie<T, Node>::get(std::string index) {
-	Node *curr = this->head_, *prev;
-
-	int i = 0;
-
-	while (true) {
-		prev = curr;
-		curr = prev->child_get(index[i]);
-
-		if (i >= index.size()) break;
-
-		if (curr == nullptr) return throw "Error";
+		if (curr == nullptr) return { };
 
 		i++;
 	}

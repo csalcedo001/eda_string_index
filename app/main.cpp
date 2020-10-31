@@ -20,7 +20,7 @@ int main() {
 	tests.push_back("h");
 	tests.push_back("ho");
 	tests.push_back("hol");
-	tests.push_back("hola");
+	tests.push_back("holo");
 	tests.push_back("prueba");
 	tests.push_back("");
 
@@ -29,10 +29,13 @@ int main() {
 	}
 
 	for (auto e : tests) {
-		std::cout << "Test \"" << e << "\": " << trie.exists(e) << std::endl;
-	}
+		cout << "Query: \"" << e << "\"" << endl;
+		auto values = trie.get(e);
 
-	trie.print();
+		for (auto e : *values) {
+			cout << "  " << e << endl;
+		}
+	}
 
     return 0;
 }
