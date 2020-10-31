@@ -3,6 +3,8 @@
 
 #include "base_trie.hpp"
 
+#include <iostream>
+
 #include "base_node.hpp"
 
 namespace eda {
@@ -10,7 +12,7 @@ namespace eda {
 namespace trie {
 
 template <typename T, class Node>
-BaseTrie<T, Node>::BaseTrie () : head_(nullptr) { }
+BaseTrie<T, Node>::BaseTrie () : head_(new Node('\0')) { }
 
 template <typename T, class Node>
 BaseTrie<T, Node>::~BaseTrie () {
@@ -21,19 +23,90 @@ template <typename T, class Node>
 void BaseTrie<T, Node>::insert(std::string index, T value) {
 	if (index.length() == 0) return;
 
-	Node *prev, *current;
+	Node *curr = this->head_, *prev;
 
-	current = &this->head_;
+	int i = 0;
 
-	for (char c : index) {
-		if (*current == nullptr) {
-			*current = new Node(c);
+	while (true) {
+		prev = curr;
+		curr = prev->child_get(index[i]);
+
+		if (i >= index.size()) break;
+
+		if (curr == nullptr) {
+			curr = prev->child_set(index[i]);
 		}
 
-		current = &(*current)->get_node(c);
+		i++;
 	}
 
-	(*current)->values_.push_back(value);
+	prev->values_.push_back(value);
+}
+
+// template <typename T, class Node>
+// void BaseTrie<T, Node>::insert(std::string index, T value) {
+// 	if (index.length() == 0) return;
+// 
+// 	Node **current;
+// 
+// 	current = &this->head_;
+// 
+// 	int i = 0;
+// 
+// 	while (true) {
+// 		if (*current == nullptr) {
+// 			*current = new Node(index[i]);
+// 		}
+// 
+// 		if (i >= index.length() - 1) break;
+// 
+// 		current = &(*current)->child_get(index[i]);
+// 		i++;
+// 	}
+// 
+// 	if (*current == nullptr) {
+// 		*current = new Node(index[i]);
+// 	}
+// 
+// 	(*current)->values_.push_back(value);
+// }
+
+template <typename T, class Node>
+void BaseTrie<T, Node>::print() {
+	for (auto child : this->head_->children_) {
+		this->print(child, 0);
+	}
+}
+
+template <typename T, class Node>
+void BaseTrie<T, Node>::print(Node * node, int level) {
+	if (node != nullptr) {
+		for (int i = 0; i < level; i++) {
+			std::cout << "    ";
+		}
+		std::cout << node->key_;
+
+		if (node->is_terminal()) {
+			std::cout << " *" << std::endl;
+
+			for (auto value : node->values_) {
+				for (int i = 0; i < level; i++) {
+					std::cout << "    ";
+				}
+
+				std::cout << value << std::endl;
+			}
+
+			std::cout << std::endl;
+		}
+		else {
+			std::cout << std::endl;
+		}
+		
+		for (auto child : node->children_) {
+			this->print(child, level + 1);
+		}
+	}
 }
 
 template <typename T, class Node>

@@ -4,7 +4,7 @@
 #include <array>
 #include <vector>
 
-#define NUM_LETTERS 26
+#define SIZE_ALPHABET 128 // All characters
 
 namespace eda {
 
@@ -14,13 +14,15 @@ template <typename T, typename Node>
 class BaseNode {
 public:
 	char key_;
-	std::array<Node *, 2 * NUM_LETTERS> children_;
+	std::array<Node *, SIZE_ALPHABET> children_;
 	std::vector<T> values_;
 
 public:
 	BaseNode(char);
 
-	Node *get_node(char);
+	Node *&child_get(char);
+	Node *&child_set(char);
+	bool is_terminal();
 };
 
 } // namespace trie 
