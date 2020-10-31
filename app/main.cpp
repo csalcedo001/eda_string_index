@@ -8,16 +8,28 @@ using namespace std;
 int main() {
     eda::trie::Trie<string> trie;
 
-	vector<string> test;
+	vector<string> inputs, tests;
 
-	test.push_back("hola");
-	test.push_back("prueba");
-	test.push_back("holo");
-	test.push_back("ho");
-	test.push_back("holograma");
+	inputs.push_back("hola");
+	inputs.push_back("prueba");
+	inputs.push_back("holo");
+	inputs.push_back("ho");
+	inputs.push_back("holograma");
+	inputs.push_back("holo");
 
-	for (auto e : test) {
+	tests.push_back("h");
+	tests.push_back("ho");
+	tests.push_back("hol");
+	tests.push_back("hola");
+	tests.push_back("prueba");
+	tests.push_back("");
+
+	for (auto e : inputs) {
 		trie.insert(e, e);
+	}
+
+	for (auto e : tests) {
+		std::cout << "Test \"" << e << "\": " << trie.exists(e) << std::endl;
 	}
 
 	trie.print();

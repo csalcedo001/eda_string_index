@@ -12,7 +12,10 @@ namespace eda {
 namespace trie {
 
 template <typename T, class Node>
-BaseTrie<T, Node>::BaseTrie () : head_(new Node('\0')) { }
+BaseTrie<T, Node>::BaseTrie () :
+	head_(new Node('\0')),
+	size_(0)
+{ }
 
 template <typename T, class Node>
 BaseTrie<T, Node>::~BaseTrie () {
@@ -41,38 +44,53 @@ void BaseTrie<T, Node>::insert(std::string index, T value) {
 	}
 
 	prev->values_.push_back(value);
+	this->size_++;
 }
 
-// template <typename T, class Node>
-// void BaseTrie<T, Node>::insert(std::string index, T value) {
-// 	if (index.length() == 0) return;
-// 
-// 	Node **current;
-// 
-// 	current = &this->head_;
-// 
-// 	int i = 0;
-// 
-// 	while (true) {
-// 		if (*current == nullptr) {
-// 			*current = new Node(index[i]);
-// 		}
-// 
-// 		if (i >= index.length() - 1) break;
-// 
-// 		current = &(*current)->child_get(index[i]);
-// 		i++;
-// 	}
-// 
-// 	if (*current == nullptr) {
-// 		*current = new Node(index[i]);
-// 	}
-// 
-// 	(*current)->values_.push_back(value);
-// }
+template <typename T, class Node>
+bool BaseTrie<T, Node>::exists(std::string index) {
+	Node *curr = this->head_, *prev;
+
+	int i = 0;
+
+	while (true) {
+		prev = curr;
+		curr = prev->child_get(index[i]);
+
+		if (i >= index.size()) break;
+
+		if (curr == nullptr) return false;
+
+		i++;
+	}
+
+	return prev->is_terminal();
+}
+
+template <typename T, class Node>
+std::vector<T> BaseTrie<T, Node>::get(std::string index) {
+	Node *curr = this->head_, *prev;
+
+	int i = 0;
+
+	while (true) {
+		prev = curr;
+		curr = prev->child_get(index[i]);
+
+		if (i >= index.size()) break;
+
+		if (curr == nullptr) return throw "Error";
+
+		i++;
+	}
+
+	return prev->values_;
+}
 
 template <typename T, class Node>
 void BaseTrie<T, Node>::print() {
+	std::cout << "Element count: " << this->size_ << std::endl;
+
 	for (auto child : this->head_->children_) {
 		this->print(child, 0);
 	}

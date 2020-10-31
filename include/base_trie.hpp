@@ -1,6 +1,8 @@
 #ifndef TRIE_BASE_TRIE_HPP_
 #define TRIE_BASE_TRIE_HPP_
 
+#include <vector>
+
 #include "base_node.hpp"
 
 namespace eda {
@@ -11,6 +13,7 @@ template <typename T, typename Node>
 class BaseTrie {
 protected:
 	Node *head_;
+	int size_;
 
 public:
 	BaseTrie();
@@ -18,14 +21,13 @@ public:
 
 	void insert(std::string, T);
 	bool exists(std::string);
-	bool get(std::string);
+	std::vector<T> get(std::string);
 	void remove(std::string);
 
 	int size();
 	void print();
 
 protected:
-	void insert(Node *, char, T);
 	void print(Node *, int level);
 	void kill(Node *);
 };
