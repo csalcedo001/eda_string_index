@@ -1,2 +1,3 @@
-# eda_trie
-Trie
+# Trie
+
+Trie implementation
