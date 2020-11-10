@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <optional>
 
 #include "trie.hpp"
 
@@ -22,6 +23,7 @@ int main() {
 	tests.push_back("hol");
 	tests.push_back("holo");
 	tests.push_back("prueba");
+	tests.push_back("abc");
 	tests.push_back("");
 
 	for (auto e : inputs) {
@@ -32,7 +34,7 @@ int main() {
 		cout << "Query: \"" << e << "\"" << endl;
 		auto values = trie.get(e);
 
-		for (auto e : *values) {
+		for (auto e : values.value_or(vector<string>())) {
 			cout << "  " << e << endl;
 		}
 	}

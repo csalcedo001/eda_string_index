@@ -106,7 +106,7 @@ void BaseTrie<T, Node>::print(Node * node, int level) {
 		std::cout << node->key_;
 
 		if (node->is_terminal()) {
-			std::cout << " *" << std::endl;
+			std::cout << "*" << std::endl;
 
 			for (auto value : node->values_) {
 				for (int i = 0; i < level; i++) {
