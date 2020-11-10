@@ -24,6 +24,7 @@ int main() {
 	tests.push_back("holo");
 	tests.push_back("prueba");
 	tests.push_back("abc");
+	tests.push_back("tmp");
 	tests.push_back("");
 
 	for (auto e : inputs) {
@@ -32,9 +33,8 @@ int main() {
 
 	for (auto e : tests) {
 		cout << "Query: \"" << e << "\"" << endl;
-		auto values = trie.get(e);
 
-		for (auto e : values.value_or(vector<string>())) {
+		for (auto e : trie.get(e)) {
 			cout << "  " << e << endl;
 		}
 	}

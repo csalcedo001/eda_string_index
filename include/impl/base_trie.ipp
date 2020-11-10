@@ -69,7 +69,7 @@ void BaseTrie<T, Node>::insert(std::string index, T value) {
 // }
 
 template <typename T, class Node>
-std::optional<std::vector<T> > BaseTrie<T, Node>::get(std::string index) {
+std::vector<T> BaseTrie<T, Node>::get(std::string index) {
 	Node *curr = this->head_, *prev;
 
 	int i = 0;
@@ -80,7 +80,7 @@ std::optional<std::vector<T> > BaseTrie<T, Node>::get(std::string index) {
 
 		if (i >= index.size()) break;
 
-		if (curr == nullptr) return { };
+		if (curr == nullptr) return {};
 
 		i++;
 	}

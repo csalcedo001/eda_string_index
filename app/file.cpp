@@ -53,9 +53,7 @@ int main(int argc, char **argv) {
 	string name;
 
 	while (getline(cin, name)) {
-		auto values = trie.get(name);
-
-		for (auto e : *values) {
+		for (auto e : trie.get(name)) {
 			cout << "  " << e << endl;
 		}
 	}

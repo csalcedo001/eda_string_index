@@ -21,7 +21,7 @@ public:
 	~BaseTrie();
 
 	void insert(std::string, T);
-	std::optional<std::vector<T> > get(std::string);
+	std::vector<T> get(std::string);
 	void remove(std::string);
 
 	long long size();
