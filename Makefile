@@ -13,7 +13,7 @@ BINFILES = $(patsubst app/%.cpp, bin/%, $(wildcard app/*.cpp))
 
 all: $(BINFILES)
 
-bin/%: app/%.cpp # $(OBJFILES)
+bin/%: app/%.cpp $(OBJFILES)
 	mkdir -p "$(@D)"
 	$(CXX) $(CXXFLAGS) $^
 
