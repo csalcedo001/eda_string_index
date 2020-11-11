@@ -17,7 +17,7 @@ which receives the search path from which files are chosen. Baseline datasets ca
 Given an already build dataset of filenames, one can search through the files by calling
 
 ```
-./bin/file <dataset_path> <index_structure>
+./bin/partial_match <dataset_path> <index_structure>
 ```
 
 which opens up an interface that receives filename queries and returns the path of name matches. Supported index structures are trie, radix\_tree and ternary\_search\_tree. Make sure you run `make` to be able to run the executables.
