@@ -10,7 +10,7 @@ The datasets used for testing are created using the following command
 ./generate_baseline_data <search_path>
 ```
 
-which receives the search path from which files are chosen. Baseline datasets capture files with four types of extensions: .pdf, .mp3, .jpg and .cpp. These can then be given as input to the executable that tests the trie.
+which receives the search path from which files are chosen. Baseline datasets capture files with four types of extensions: .pdf, .mp3, .jpg and .cpp. These files are saved in data/data and can then be given as input to the executable that tests the trie.
 
 ## Testing
 
