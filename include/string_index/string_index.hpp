@@ -9,16 +9,6 @@ namespace string_index {
 
 template <typename T>
 class StringIndex {
-// protected:
-// 	Node *head_;
-// 
-// public:
-// 	void print();
-// 
-// protected:
-// 	void print(Node *, int level);
-// 	void kill(Node *);
-
 public:
 	virtual void insert(std::string, T) = 0;
 	virtual std::vector<T> exact_match(std::string) = 0;
