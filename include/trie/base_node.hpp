@@ -22,6 +22,7 @@ public:
 
 	Node *&child_get(char);
 	Node *&child_set(char);
+	void recursive_values(std::vector<T> &);
 	bool is_terminal();
 };
 

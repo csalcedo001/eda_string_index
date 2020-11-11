@@ -3,6 +3,8 @@
 
 #include "trie/base_node.hpp"
 
+#include <vector>
+
 #include "trie/base_trie.hpp"
 
 namespace eda {
@@ -26,6 +28,17 @@ Node *&BaseNode<T, Node>::child_get(char key) {
 template <typename T, typename Node>
 Node *&BaseNode<T, Node>::child_set(char key) {
 	return this->children_[key] = new Node(key);
+}
+
+template <typename T, typename Node>
+void BaseNode<T, Node>::recursive_values(std::vector<T> &result) {
+	result.insert(result.end(), this->values_.begin(), this->values_.end());
+
+	for (auto child : this->children_) {
+		if (child != nullptr) {
+			child->recursive_values(result);
+		}
+	}
 }
 
 template <typename T, typename Node>

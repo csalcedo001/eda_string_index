@@ -69,9 +69,14 @@ int main(int argc, char **argv) {
 	string name;
 
 	while (getline(cin, name)) {
-		for (auto e : index->exact_match(name)) {
-			cout << "  " << e << endl;
+		auto matches = index->partial_match(name);
+
+		cout << "Matches: " << matches.size() << endl;
+		
+		for (auto match : matches) {
+			cout << "  " << match << endl;
 		}
+		cout << endl;
 	}
 
 	delete index;

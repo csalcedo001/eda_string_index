@@ -90,7 +90,13 @@ std::vector<T> BaseTrie<T, Node>::partial_match(std::string index) {
 		i++;
 	}
 
-	return prev->values_;
+	std::vector<T> result;
+
+	if (prev != nullptr) {
+		prev->recursive_values(result);
+	}
+
+	return result;
 }
 
 template <typename T, class Node>
