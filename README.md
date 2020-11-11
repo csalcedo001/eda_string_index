@@ -1,6 +1,6 @@
-# Trie
+# String index data structures
 
-Implementation of Trie data structure.
+Implementation of string indexing data structures: trie, radix\_tree and ternary\_search\_tree.
 
 ## Data generation
 
