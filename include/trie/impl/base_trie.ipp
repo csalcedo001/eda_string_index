@@ -1,12 +1,12 @@
 #ifndef TRIE_BASE_TRIE_IPP_
 #define TRIE_BASE_TRIE_IPP_
 
-#include "base_trie.hpp"
+#include "trie/base_trie.hpp"
 
 #include <iostream>
 #include <optional>
 
-#include "base_node.hpp"
+#include "trie/base_node.hpp"
 
 namespace eda {
 
@@ -48,28 +48,33 @@ void BaseTrie<T, Node>::insert(std::string index, T value) {
 	this->size_++;
 }
 
-// template <typename T, class Node>
-// bool BaseTrie<T, Node>::exists(std::string index) {
-// 	Node *curr = this->head_, *prev;
-// 
-// 	int i = 0;
-// 
-// 	while (true) {
-// 		prev = curr;
-// 		curr = prev->child_get(index[i]);
-// 
-// 		if (i >= index.size()) break;
-// 
-// 		if (curr == nullptr) return false;
-// 
-// 		i++;
-// 	}
-// 
-// 	return prev->is_terminal();
-// }
+template <typename T, class Node>
+long long BaseTrie<T, Node>::size() {
+	return this->size_;
+}
 
 template <typename T, class Node>
-std::vector<T> BaseTrie<T, Node>::get(std::string index) {
+std::vector<T> BaseTrie<T, Node>::exact_match(std::string index) {
+	Node *curr = this->head_, *prev;
+
+	int i = 0;
+
+	while (true) {
+		prev = curr;
+		curr = prev->child_get(index[i]);
+
+		if (i >= index.size()) break;
+
+		if (curr == nullptr) return {};
+
+		i++;
+	}
+
+	return prev->values_;
+}
+
+template <typename T, class Node>
+std::vector<T> BaseTrie<T, Node>::partial_match(std::string index) {
 	Node *curr = this->head_, *prev;
 
 	int i = 0;
@@ -98,7 +103,7 @@ void BaseTrie<T, Node>::print() {
 }
 
 template <typename T, class Node>
-void BaseTrie<T, Node>::print(Node * node, int level) {
+void BaseTrie<T, Node>::print(Node *node, int level) {
 	if (node != nullptr) {
 		for (int i = 0; i < level; i++) {
 			std::cout << "    ";

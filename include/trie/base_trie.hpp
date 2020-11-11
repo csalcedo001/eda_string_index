@@ -4,14 +4,15 @@
 #include <vector>
 #include <optional>
 
-#include "base_node.hpp"
+#include "string_index/string_index.hpp"
+#include "trie/base_node.hpp"
 
 namespace eda {
 
 namespace trie {
 
-template <typename T, typename Node>
-class BaseTrie {
+template <typename T, class Node>
+class BaseTrie : public string_index::StringIndex<T> {
 protected:
 	Node *head_;
 	int size_;
@@ -21,9 +22,8 @@ public:
 	~BaseTrie();
 
 	void insert(std::string, T);
-	std::vector<T> get(std::string);
-	void remove(std::string);
-
+	std::vector<T> exact_match(std::string);
+	std::vector<T> partial_match(std::string);
 	long long size();
 	void print();
 
@@ -36,6 +36,6 @@ protected:
 
 } // namespace eda
 
-#include "impl/base_trie.ipp"
+#include "trie/impl/base_trie.ipp"
 
-#endif // TRIE_TRIE_HPP_
+#endif // TRIE_BASE_TRIE_HPP_

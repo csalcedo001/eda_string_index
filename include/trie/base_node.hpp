@@ -29,6 +29,6 @@ public:
 
 } // namespace eda
 
-#include "impl/base_node.ipp"
+#include "trie/impl/base_node.ipp"
 
 #endif // TRIE_BASE_NODE_HPP_

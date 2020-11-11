@@ -2,7 +2,7 @@
 #include <vector>
 #include <fstream>
 
-#include "trie.hpp"
+#include "string_index.hpp"
 
 using namespace std;
 
@@ -30,22 +30,38 @@ string get_prefix(string path) {
 }
 
 int main(int argc, char **argv) {
-	if (argc != 2) {
-		cerr << "Usage:./bin/file <data path>" << endl;
+	if (argc != 3) {
+		cerr << "Usage:" << argv[0] << " <data_path> <indexing_structure>" << endl;
 		return 1;
 	}
+
 
 	string filename = argv[1];
 	ifstream file(filename);
 
-    eda::trie::Trie<string> trie;
+	if (!file.is_open()) {
+		cerr << "error: couldn't open file " << filename << endl;
+		return 1;
+	}
+
+
+	string structure_name(argv[2]);
+	eda::string_index::StringIndex<string> *index;
+
+	if (structure_name.compare("trie") == 0) {
+		index = new eda::trie::Trie<string>();
+	}
+	else {
+		cerr << "error: structure \"" << structure_name << "\" is not supported. Supported structures: trie, radix_tree, ternary_search_tree" << endl;
+		return 1;
+	}
 
 	string line;
 
 	while (getline(file, line)) {
 		string prefix = get_prefix(line);
 
-		trie.insert(prefix, line);
+		index->insert(prefix, line);
 	}
 
 	cout << "Processing finished" << endl;
@@ -53,10 +69,12 @@ int main(int argc, char **argv) {
 	string name;
 
 	while (getline(cin, name)) {
-		for (auto e : trie.get(name)) {
+		for (auto e : index->exact_match(name)) {
 			cout << "  " << e << endl;
 		}
 	}
+
+	delete index;
 
     return 0;
 }

@@ -1,9 +1,9 @@
 #ifndef TRIE_BASE_NODE_IPP_
 #define TRIE_BASE_NODE_IPP_
 
-#include "base_node.hpp"
+#include "trie/base_node.hpp"
 
-#include "base_trie.hpp"
+#include "trie/base_trie.hpp"
 
 namespace eda {
 

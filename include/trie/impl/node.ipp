@@ -1,7 +1,7 @@
 #ifndef TRIE_NODE_IPP_
 #define TRIE_NODE_IPP_
 
-#include "node.hpp"
+#include "trie/node.hpp"
 
 namespace eda {
 

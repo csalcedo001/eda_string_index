@@ -1,8 +1,8 @@
 #ifndef TRIE_TRIE_HPP_
 #define TRIE_TRIE_HPP_
 
-#include "base_trie.hpp"
-#include "node.hpp"
+#include "trie/base_trie.hpp"
+#include "trie/node.hpp"
 
 namespace eda {
 

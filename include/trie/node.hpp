@@ -1,7 +1,7 @@
 #ifndef TRIE_NODE_HPP_
 #define TRIE_NODE_HPP_
 
-#include "base_node.hpp"
+#include "trie/base_node.hpp"
 
 namespace eda {
 
@@ -17,6 +17,6 @@ public:
 
 } // namespace eda
 
-#include "impl/node.ipp"
+#include "trie/impl/node.ipp"
 
 #endif // TRIE_NODE_HPP_
