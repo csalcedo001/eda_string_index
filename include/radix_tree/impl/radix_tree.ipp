@@ -1,7 +1,7 @@
 #ifndef RADIX_TREE_RADIX_TREE_IPP_
 #define RADIX_TREE_RADIX_TREE_IPP_
 
-#include "string_index/string_index.hpp"
+#include "radix_tree/radix_tree.hpp"
 
 namespace eda {
 
