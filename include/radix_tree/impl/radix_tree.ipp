@@ -7,14 +7,14 @@ namespace eda {
 
 namespace radix_tree {
 
-template <typename T, class Node>
-RadixTree<T, Node>::RadixTree() {
+template <typename T>
+RadixTree<T>::RadixTree() {
     this->prefix.resize(26);
     std::fill(this->prefix.begin(), this->prefix.end(), nullptr);
 }
 
 template <typename T>
-void RadixTree<T>::recorrerRecursivo(Node<T>* temp, const std::string& word) {
+void RadixTree<T>::recorrerRecursivo(BaseNode<T>* temp, const std::string& word) {
     if (temp->isTerminal) {
         std::cout << word << temp->content << ' ';
         for (auto it : temp->posicion) {
@@ -34,7 +34,7 @@ template <typename T>
 void RadixTree<T>::insert(const std::string& content, std::pair <int, int> posicion) {
     //Cuando la primera letra aún no está indexada
     if (this->prefix[(unsigned int)(unsigned char)content[0]-97] == nullptr) {
-        auto* temp = new Node<T>(content, posicion);
+        auto* temp = new BaseNode<T>(content, posicion);
         this->prefix[(unsigned int)(unsigned char)content[0]-97] = temp;
         totalSize += (sizeof(posicion) + sizeof(content));
     } else { //Si ya está indexada, busca en el vector de nodos
@@ -50,7 +50,7 @@ void RadixTree<T>::insert(const std::string& content, std::pair <int, int> posic
             }
             //Si aún no se termina de recorrer el contenido del nodo, se separa la parte diferente
             if (tempIndex < temp->content.length()) {
-                auto newNode = new Node<T>(temp->content.substr(tempIndex), temp->posicion[0]);
+                auto newNode = new BaseNode<T>(temp->content.substr(tempIndex), temp->posicion[0]);
                 totalSize += (sizeof(posicion) + sizeof(content));
                 std::string nuevo = temp->content.substr(0, tempIndex);
                 temp->content = nuevo;
@@ -60,7 +60,7 @@ void RadixTree<T>::insert(const std::string& content, std::pair <int, int> posic
             //Busca en el vector de nodos si el caracter ya está indexado
             if(index == content.length()) return;
             if (temp->prefix[(unsigned int) (unsigned char) content[index] - 97] == nullptr) {
-                auto newNode = new Node<T>(content.substr(index), posicion);
+                auto newNode = new BaseNode<T>(content.substr(index), posicion);
                 totalSize += (sizeof(posicion) + sizeof(content));
                 temp->prefix[(unsigned int) (unsigned char) content[index] - 97] = newNode;
                 return;

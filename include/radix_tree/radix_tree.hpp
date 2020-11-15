@@ -3,6 +3,7 @@
 
 #include "string_index/string_index.hpp"
 #include "radix_tree/radix_node.hpp"
+
 #include <vector>
 
 namespace eda {
@@ -12,9 +13,9 @@ namespace radix_tree {
 template <typename T>
 class RadixTree : public string_index::StringIndex<T> {
 protected:
-    std::vector <Node<T>*> prefix;
+    std::vector <BaseNode<T>*> prefix;
 
-    void recorrerRecursivo(Node<T>* temp, const std::string& word);
+    void recorrerRecursivo(BaseNode<T>* temp, const std::string& word);
 
 public:
 	void insert(const std::string& content, std::pair <int, int> posicion);
