@@ -2,6 +2,8 @@
 #define RADIX_TREE_RADIX_TREE_HPP_
 
 #include "string_index/string_index.hpp"
+#include "radix_tree/radix_node.hpp"
+#include <vector>
 
 namespace eda {
 

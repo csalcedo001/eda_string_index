@@ -8,8 +8,8 @@ namespace eda {
 namespace radix_tree {
 
 template <typename T, class Node>
-BaseTrie<T, Node>::BaseTrie() {
-    this->prefix.resize(size);
+RadixTree<T, Node>::RadixTree() {
+    this->prefix.resize(26);
     std::fill(this->prefix.begin(), this->prefix.end(), nullptr);
 }
 
