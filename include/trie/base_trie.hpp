@@ -30,6 +30,7 @@ public:
 protected:
 	void print(Node *, int level);
 	void kill(Node *);
+	long long size(Node *);
 };
 
 } // namespace trie
