@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <optional>
 
 #include "string_index.hpp"
 

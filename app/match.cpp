@@ -1,8 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <chrono>
 
-#include "string_index.hpp"
+// #include "string_index.hpp"
+#include "trie/trie.hpp"
+#include "radix_tree/radix_tree.hpp"
 #include "functions.hpp"
 
 using namespace std;
@@ -35,9 +38,9 @@ int main(int argc, char **argv) {
 	else if (structure_name.compare("radix_tree") == 0) {
 		index = new eda::radix_tree::RadixTree<long long>();
 	}
-	else if (structure_name.compare("ternary_search_tree") == 0) {
-		index = new eda::ternary_search_tree::TernarySearchTree<long long>();
-	}
+	// else if (structure_name.compare("ternary_search_tree") == 0) {
+	// 	index = new eda::ternary_search_tree::TernarySearchTree<long long>();
+	// }
 	else {
 		cerr << "error: structure \"" << structure_name << "\" is not supported. Supported structures: trie, radix_tree, ternary_search_tree" << endl;
 		return 1;
@@ -81,16 +84,27 @@ int main(int argc, char **argv) {
 	// Answer filename queries
 	string name;
 
+	auto begin = chrono::steady_clock::now();
+	auto end = begin;
+
+	double total_time = 0;
+	int total_queries = 0;
+
 	while (getline(cin, name)) {
 		vector<long long> matches;
 
+		begin = chrono::steady_clock::now();
 		if (exact_match) {
 			matches = index->exact_match(name);
 		}
 		else {
 			matches = index->partial_match(name);
 		}
-			
+		end = chrono::steady_clock::now();
+
+		total_time += chrono::duration_cast<chrono::microseconds>(end - begin).count();
+		
+		total_queries++;
 
 		cout << "Matches: " << matches.size() << endl;
 		
@@ -106,6 +120,8 @@ int main(int argc, char **argv) {
 		}
 		cout << endl;
 	}
+
+	cout << "Average query time: " << total_time / total_queries << " us" << endl;
 
 	delete index;
 
