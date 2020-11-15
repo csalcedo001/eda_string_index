@@ -21,7 +21,7 @@ private:
         ts_node<B>* left;
         ts_node<B>* middle;
         ts_node<B>* right;
-        vector<B> disk_pos;
+        std::vector<B> disk_pos;
 
         ts_node(bool Final, T& data) {
             this->is_Final = Final;

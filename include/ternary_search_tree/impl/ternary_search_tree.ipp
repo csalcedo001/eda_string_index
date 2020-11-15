@@ -88,15 +88,15 @@ template <typename T>
 std::vector<T> TernarySearchTree<T>::partial_match(ts_node<T>*& tsn, std::string partialword) {
 	std::vector<T> result;
 	if (tsn == nullptr) { return result; }
-	std::vector<T> vec0 = partial_match_find_words(tsn->left, partialword);
-	std::vector<T> vec2 = partial_match_find_words(tsn->right, partialword);
+	std::vector<T> vec0 = partial_match(tsn->left, partialword);
+	std::vector<T> vec2 = partial_match(tsn->right, partialword);
 
 	if (tsn->is_Final) {
 		result.insert(result.end(), tsn->disk_pos.begin(), tsn->disk_pos.end());
 	}
 	partialword.push_back(tsn->val);
 
-	std::vector<T> vec1 = partial_match_find_words(tsn->middle, partialword);
+	std::vector<T> vec1 = partial_match(tsn->middle, partialword);
 	result.insert(result.end(), vec0.begin(), vec0.end());
 	result.insert(result.end(), vec1.begin(), vec1.end());
 	result.insert(result.end(), vec2.begin(), vec2.end());
@@ -107,8 +107,8 @@ std::vector<T> TernarySearchTree<T>::partial_match(ts_node<T>*& tsn, std::string
 template <typename T>
 std::vector<T> TernarySearchTree<T>::partial_match(std::string searchval) {
 	ts_node<T>* temp = root;
-	string searchword = {};
-	std::vector <string> result;
+	std::string searchword = {};
+	std::vector <T> result;
 	for (int i = 0; i < searchval.length(); i++) {
 		if (temp == nullptr) { return result; }
 		if (searchval[i] < temp->val) {
@@ -122,7 +122,7 @@ std::vector<T> TernarySearchTree<T>::partial_match(std::string searchval) {
 			temp = temp->right;
 		}
 	}
-	return partial_match_find_words(temp, searchword);
+	return partial_match(temp, searchword);
 }
 
 template <typename T>
@@ -148,8 +148,8 @@ void TernarySearchTree<T>::print(ts_node<T>* tsn, std::string partialword) {
 
 	print(tsn->left, partialword);
 
-	string prev = partialword;
-	if (tsn->is_Final) cout << partialword << endl;
+	std::string prev = partialword;
+	if (tsn->is_Final) std::cout << partialword << std::endl;
 	if (!tsn->no_val) partialword.push_back(tsn->val);
 	print(tsn->middle, partialword);
 
@@ -159,7 +159,7 @@ void TernarySearchTree<T>::print(ts_node<T>* tsn, std::string partialword) {
 template <typename T>
 void TernarySearchTree<T>::print() {
 	ts_node<T>* temp = root;
-	string partialword = {};
+	std::string partialword = {};
 	print(temp, partialword);
 }
 

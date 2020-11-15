@@ -36,12 +36,12 @@ int main(int argc, char **argv) {
 	if (structure_name.compare("trie") == 0) {
 		index = new eda::trie::Trie<long long>();
 	}
-	else if (structure_name.compare("radix_tree") == 0) {
-		index = new eda::radix_tree::RadixTree<long long>();
-	}
-	// else if (structure_name.compare("ternary_search_tree") == 0) {
-	// 	index = new eda::ternary_search_tree::TernarySearchTree<long long>();
+	// else if (structure_name.compare("radix_tree") == 0) {
+	// 	index = new eda::radix_tree::RadixTree<long long>();
 	// }
+	else if (structure_name.compare("ternary_search_tree") == 0) {
+		index = new eda::ternary_search_tree::TernarySearchTree<long long>();
+	}
 	else {
 		cerr << "error: structure \"" << structure_name << "\" is not supported. Supported structures: trie, radix_tree, ternary_search_tree" << endl;
 		return 1;
