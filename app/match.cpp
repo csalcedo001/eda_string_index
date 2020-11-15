@@ -8,12 +8,14 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-	if (argc != 3) {
-		cerr << "Usage:" << argv[0] << " <data_path> <indexing_structure>" << endl;
+	// Check correct number of arguments
+	if (argc != 4) {
+		cerr << "Usage:" << argv[0] << " <data_path> <indexing_structure> <match_type>" << endl;
 		return 1;
 	}
 
 
+	// Check if first argument is valid
 	string filename = argv[1];
 	fstream file(filename, ios::in | ios::out);
 
@@ -23,6 +25,7 @@ int main(int argc, char **argv) {
 	}
 
 
+	// Check if second argument is valid
 	string structure_name(argv[2]);
 	eda::string_index::StringIndex<long long> *index;
 
@@ -40,6 +43,24 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
+
+	// Check if third argument is valid
+	string match_type(argv[3]);
+	bool exact_match;
+
+	if (match_type == "exact") {
+		exact_match = true;
+	}
+	else if (match_type == "partial") {
+		exact_match = false;
+	}
+	else {
+		cerr << "error: match type \"" << match_type << "\" is not supported. Supported match types: exact, partial" << endl;
+		return 1;
+	}
+
+
+	// Index file elements
 	string line;
 	long long position = file.tellg();
 
@@ -51,15 +72,25 @@ int main(int argc, char **argv) {
 		position = file.tellg();
 	}
 
-	cout << "Processing finished" << endl;
-
-	string name;
-
 	file.clear();
 
+	cout << "Processing finished" << endl;
+	cout << "RAM in use: " << index->size() << " B" << endl;
+
+
+	// Answer filename queries
+	string name;
 
 	while (getline(cin, name)) {
-		auto matches = index->partial_match(name);
+		vector<long long> matches;
+
+		if (exact_match) {
+			matches = index->exact_match(name);
+		}
+		else {
+			matches = index->partial_match(name);
+		}
+			
 
 		cout << "Matches: " << matches.size() << endl;
 		
