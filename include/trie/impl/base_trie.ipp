@@ -50,7 +50,7 @@ void BaseTrie<T, Node>::insert(std::string index, T value) {
 
 template <typename T, class Node>
 long long BaseTrie<T, Node>::size() {
-	return this->size_;
+	return this->size(this->head_) + sizeof(*this);
 }
 
 template <typename T, class Node>
@@ -137,6 +137,21 @@ void BaseTrie<T, Node>::print(Node *node, int level) {
 			this->print(child, level + 1);
 		}
 	}
+}
+
+template <typename T, class Node>
+long long BaseTrie<T, Node>::size(Node *node) {
+	long long total = 0;
+
+	if (node != nullptr) {
+		total = sizeof(*node);
+
+		for (auto child : node->children_) {
+			total += this->size(child);
+		}
+	}
+
+	return total;
 }
 
 template <typename T, class Node>

@@ -75,6 +75,7 @@ int main(int argc, char **argv) {
 	file.clear();
 
 	cout << "Processing finished" << endl;
+	cout << "RAM in use: " << index->size() << " B" << endl;
 
 
 	// Answer filename queries
