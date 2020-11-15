@@ -13,15 +13,15 @@ template <typename T>
 class TernarySearchTree : public string_index::StringIndex<T> {
 
 private:
-    template <typename T>
+    template <typename B>
     struct ts_node {
         char val;
         bool is_Final;
         bool no_val;
-        ts_node<T>* left;
-        ts_node<T>* middle;
-        ts_node<T>* right;
-        vector<T> disk_pos;
+        ts_node<B>* left;
+        ts_node<B>* middle;
+        ts_node<B>* right;
+        vector<B> disk_pos;
 
         ts_node(bool Final, T& data) {
             this->is_Final = Final;

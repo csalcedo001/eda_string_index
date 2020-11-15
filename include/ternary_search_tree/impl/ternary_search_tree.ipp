@@ -53,8 +53,8 @@ void TernarySearchTree<T>::insert(std::string val, T data) {
 }
 
 template <typename T>
-std::vector<T> TernarySearchTree<T>::exact_match(std::string& serachval, int& index, ts_node<T>*& tsn) {
-	vector <T> result;
+std::vector<T> TernarySearchTree<T>::exact_match(std::string& searchval, int& index, ts_node<T>*& tsn) {
+	std::vector <T> result;
         if (!tsn) { return result; }
 
         if (index == searchval.length()) {
@@ -85,18 +85,18 @@ std::vector<T> TernarySearchTree<T>::exact_match(std::string searchval) {
 }
 
 template <typename T>
-std::vector<T> TernarySearchTree<T>::partial_match(ts_node<T>*& tsm, std::string partialword) {
-	vector<T> result;
+std::vector<T> TernarySearchTree<T>::partial_match(ts_node<T>*& tsn, std::string partialword) {
+	std::vector<T> result;
 	if (tsn == nullptr) { return result; }
-	vector<T> vec0 = partial_match_find_words(tsn->left, partialword);
-	vector<T> vec2 = partial_match_find_words(tsn->right, partialword);
+	std::vector<T> vec0 = partial_match_find_words(tsn->left, partialword);
+	std::vector<T> vec2 = partial_match_find_words(tsn->right, partialword);
 
 	if (tsn->is_Final) {
 		result.insert(result.end(), tsn->disk_pos.begin(), tsn->disk_pos.end());
 	}
 	partialword.push_back(tsn->val);
 
-	vector<T> vec1 = partial_match_find_words(tsn->middle, partialword);
+	std::vector<T> vec1 = partial_match_find_words(tsn->middle, partialword);
 	result.insert(result.end(), vec0.begin(), vec0.end());
 	result.insert(result.end(), vec1.begin(), vec1.end());
 	result.insert(result.end(), vec2.begin(), vec2.end());
@@ -108,7 +108,7 @@ template <typename T>
 std::vector<T> TernarySearchTree<T>::partial_match(std::string searchval) {
 	ts_node<T>* temp = root;
 	string searchword = {};
-	vector <string> result;
+	std::vector <string> result;
 	for (int i = 0; i < searchval.length(); i++) {
 		if (temp == nullptr) { return result; }
 		if (searchval[i] < temp->val) {
